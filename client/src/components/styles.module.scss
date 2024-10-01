@@ -1,0 +1,83 @@
+.storyBotHeader {
+  font-size: 128px;
+  font-family: Irish Grover, serif;
+  text-align: center;
+  margin-top: 65px;
+  margin-bottom: 17px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #000;
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-top: 0px;
+}
+
+.smallInputBox {
+  width: 267px;
+  height: 67px;
+  border-radius: 25px;
+  border: 3px solid #000;
+  background: #FFF;
+  font-size: 32px;
+  display: block;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: auto;
+  margin-left: auto;
+  box-shadow: -10px -10px 0 0 #000;
+}
+
+.bigGreenActionButton {
+  width: 310px;
+  height: 78px;
+  flex-shrink: 0;
+  border-radius: 25px;
+  border: 3px solid #000;
+  background: #50B957;
+  color: #31783D;
+  font-family: "Irish Grover";
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  display: block;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: auto;
+  margin-left: auto;
+  box-shadow: -10px -10px 0 0 #000;
+
+  &:active {
+    box-shadow: -5px -5px 0 0 #000;
+    transform: translateY(-5px) translateX(-5px);
+  }
+}
+
+.nameNumber {
+  color: #767676;
+  font-family: "Irish Grover";
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.name {
+  color: #000;
+  font-family: "Irish Grover";
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.nameTable {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
