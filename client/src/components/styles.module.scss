@@ -77,7 +77,12 @@
 }
 
 .nameTable {
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
+  margin: 0 auto;
+  margin-bottom: 100px;
+}
+
+.parentContainer {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
 }
