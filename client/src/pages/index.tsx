@@ -4,12 +4,24 @@ import Welcome from "../components/welcome";
 import Lobby from "../components/lobby";
 import Awaiting from "../components/awaiting";
 import Turn from "../components/turn";
+import Gameover from "../components/gameover";
 
 const IndexPage: React.FC<PageProps> = () => {
   return (
-   <Turn emitSubmission={() => {}} prevSubmission={"... everyday I walk in the garden and I see hedgehogs. So many \n" +
-       "hedgehogs, so prime and ready for a delectable dinner delight. I \n" +
-       "cannot wait to eat a hedgehog!!! "}/>
+   <Gameover messages={[
+       {
+           content: "I like to eat",
+           name: "Kieran"
+       },
+       {
+           content: "bananas in the morning.bananas in the morning. bananas in the morning. bananas in the morning. bananas in the morning.  ",
+           name: "AI"
+       },
+       {
+           content: "Morning is nice.",
+           name: "John"
+       },
+   ]} playAgainFn={() => {}}/>
   )
 }
 

@@ -138,3 +138,69 @@
   font-weight: 400;
   line-height: normal;
 }
+
+.storyDiv {
+  width: 1067px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.sentenceP {
+  display: inline;
+  color: #000;
+  font-family: Inter;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+}
+
+.clickableP {
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  }
+  &:active {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.wait {
+  //transform: rotate(-14.537deg);
+  color: #000;
+  font-family: "Irish Grover";
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+}
+
+.gameInstruction {
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.footerDiv {
+  margin-top: 2vh;
+
+  width: 1067px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.footerDiv2 {
+  display: flex;
+  width: 1067px;
+  margin-top: 2vh;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 20px;
+  justify-content: space-between;
+  padding: 50px;
+}
