@@ -1,5 +1,5 @@
-import { storyBotHeader, smallInputBox, subtitle, bigGreenActionButton } from "./styles.module.scss"
-import React, {useState} from "react";
+import { storyBotHeader, smallInputBox, subtitle, bigGreenActionButton, howToPlay } from "./styles.module.scss"
+import React, { useState } from "react";
 
 type WelcomeProps = {
     setServerIP: (s: string) => void
@@ -12,12 +12,45 @@ const Welcome: React.FC<WelcomeProps> = (props) => {
     return (
         <div>
             <h1 className={storyBotHeader}>StoryBot</h1>
-            <h2 className={subtitle}> Welcome to your magical storytelling adventure!</h2>
-            <input placeholder={"Server IP"} className={smallInputBox} style={{marginTop: "112px"}} type="text" value={serverIP} onChange={(e) => {setServerIP(e.target.value)}} />
-            <input placeholder={"Your Name"} className={smallInputBox} style={{marginTop: "36px"}} type="text" value={name} onChange={(e) => {setName(e.target.value)}} />
-            <button className={bigGreenActionButton} style={{ marginTop: "86px" }} onClick={(e) => {
-                props.setServerIP(serverIP)
-            }}>Let's go</button>
+            <h2 className={subtitle}>Welcome to your magical storytelling adventure!</h2>
+            
+            {/* How to Play Section */}
+            <div className={howToPlay}>
+                <h3>How to Play:</h3>
+                <ul>
+                    <li>The goal is to create a story together, one turn at a time.</li>
+                    <li>Wait for your turn while others are writing.</li>
+                    <li>When it’s your turn, you’ll receive the last words from the previous player—continue from there!</li>
+                    <li>The game ends with a fun, collaborative story.</li>
+                </ul>
+            </div>
+            
+            {/* Input Fields */}
+            <input 
+                placeholder="Server IP" 
+                className={smallInputBox} 
+                style={{ marginTop: "20px" }} 
+                type="text" 
+                value={serverIP} 
+                onChange={(e) => setServerIP(e.target.value)} 
+            />
+            <input 
+                placeholder="Your Name" 
+                className={smallInputBox} 
+                style={{ marginTop: "10px" }} 
+                type="text" 
+                value={name} 
+                onChange={(e) => setName(e.target.value)} 
+            />
+            
+            {/* Action Button */}
+            <button 
+                className={bigGreenActionButton} 
+                style={{ marginTop: "30px" }} 
+                onClick={() => props.setServerIP(serverIP)}
+            >
+                Let's Go
+            </button>
         </div>
     )
 }
