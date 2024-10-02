@@ -22,7 +22,9 @@ const Lobby: React.FC<LobbyProps> = (props) => {
 
 
             <h2 className={subtitle}> Hit <b> Start Game </b> once all your friends have joined!</h2>
-            <button className={bigGreenActionButton} style={{ marginTop: "86px" }}>Start Game</button>
+            <button className={bigGreenActionButton} style={{ marginTop: "86px" }} onClick={(e) => {
+                props.emitStartGame()
+            }}>Start Game</button>
         </div>
     )
 }

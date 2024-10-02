@@ -1,11 +1,7 @@
 import { storyBotSmallHeader, bigText, subtitle, storyDiv, nameNumber, name, sentenceP, clickableP, wait, bigGreenActionButton, footerDiv, gameInstruction, footerDiv2 } from "./styles.module.scss"
 import React, {useState} from "react";
 import classNames from 'classnames';
-
-type ISubmissionMessage = {
-    content: string
-    name: string
-}
+import {ISubmissionMessage} from "../game_logic/IGameLogic";
 
 type GameoverProps = {
     messages: ISubmissionMessage[]
@@ -55,7 +51,9 @@ const returnFooter = (gameStatus: string, messages: ISubmissionMessage[], playAg
             {gameStatus === "lose" &&
                 (<h3 className={gameInstruction}>Since you lost, one of your friends will lose their job. Your friends are
                     indistinguishable from AI, so corporate says they must be replaced by robots.</h3>)}
-            <button className={bigGreenActionButton} style={{marginTop: "2px"}}>Play again?</button>
+            <button className={bigGreenActionButton} style={{marginTop: "2px"}} onClick={(e) => {
+                playAgainfn()
+            }}>Play again?</button>
         </div>
 
 
