@@ -1,7 +1,7 @@
 require('dotenv').config();
 const WebSocket = require('ws');
 
-const server = new WebSocket.Server({ port: 8080 });
+const server = new WebSocket.Server({ port: 8081 });
 const players = {}; 
 const messages = [];
 const player_names = []; 
@@ -213,4 +213,4 @@ server.on('connection', (ws) => {
     });
 });
 
-console.log('WebSocket server is running on ws://localhost:8080');
+console.log('WebSocket server is running on ws://localhost:8081');
