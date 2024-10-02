@@ -19,7 +19,7 @@ function getNextPlayer(currentPlayer) {
         return player_names[nextIndex]; 
     }
 
-    return player_names[0]; // returns to the first key
+    return -1;
 }
 
 
@@ -30,6 +30,10 @@ function shuffleArray(array) {
     }
 }
 
+function getAISentence() {
+
+}
+
 
 server.on('connection', (ws) => {
     console.log('Client connected');
@@ -38,9 +42,6 @@ server.on('connection', (ws) => {
         try {
             const data = JSON.parse(message);
             console.log('Received:', data);
-
-
-
             // Handle different types of messages
             switch(data.type){
                 case "ENTER_PLAYER":
@@ -66,7 +67,7 @@ server.on('connection', (ws) => {
                     //iterate through shuffled list of names and then send trigger_start message
                     //while iterating through shuffled list of names, also append that new order onto global player_names array
                     for (const name of names){
-                        players[names].send(JSON.stringify({
+                        players[name].send(JSON.stringify({
                             type: "TRIGGER_START",
                             player_names: Object.keys(players)
                             }));
@@ -80,7 +81,7 @@ server.on('connection', (ws) => {
                     }));
                     break; 
                 
-                case "USER_SUBMITED":
+                case "USER_SUBMITTED":
                     //creating a message object that stores name and sentence and appending to list of messages 
 
                     const message = {
@@ -90,22 +91,26 @@ server.on('connection', (ws) => {
                     messages.append(message)
 
                     //getting key of current player and setting new player 
-                    const next_player = getNextPlayer(data.player_name)
-                    players[next_player].send(JSON.stringify({
-                        type: "YOUR_TURN",
-                        last_message: messages[messages.length - 1]
-                    }));
-                    break; 
-                
-                case "GAME_ENDED":
-                    //sending game ended message to all players
-                    for (const name in players){
-                        players[name].send(JSON.stringify({
-                            type:"GAME_ENDED",
-                            story : messages
+                    let next_player = getNextPlayer(data.player_name)
+
+                    if (next_player === -1) {
+                        for (const name in players){
+                            players[name].send(JSON.stringify({
+                                type:"GAME_ENDED",
+                                story : messages
+                            }));
+                        }
+                    } else {
+                        if (next_player === "AI") {
+                            getAISentence()
+                            next_player = getNextPlayer(next_player)
+                        }
+                        players[next_player].send(JSON.stringify({
+                            type: "YOUR_TURN",
+                            last_message: messages[messages.length - 1]
                         }));
                     }
-                    break; 
+                    break;
             }
         } catch (error) {
             console.error('Error parsing message:', error);
