@@ -3,10 +3,13 @@ import type { HeadFC, PageProps } from "gatsby"
 import Welcome from "../components/welcome";
 import Lobby from "../components/lobby";
 import Awaiting from "../components/awaiting";
+import Turn from "../components/turn";
 
 const IndexPage: React.FC<PageProps> = () => {
   return (
-   <Awaiting/>
+   <Turn emitSubmission={() => {}} prevSubmission={"... everyday I walk in the garden and I see hedgehogs. So many \n" +
+       "hedgehogs, so prime and ready for a delectable dinner delight. I \n" +
+       "cannot wait to eat a hedgehog!!! "}/>
   )
 }
 
