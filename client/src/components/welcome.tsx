@@ -13,8 +13,6 @@ const Welcome: React.FC<WelcomeProps> = (props) => {
         <div>
             <h1 className={storyBotHeader}>StoryBot</h1>
             <h2 className={subtitle}>Welcome to your magical storytelling adventure!</h2>
-            
-            {/* How to Play Section */}
             <div className={howToPlay}>
                 <h3>How to Play:</h3>
                 <ul>
@@ -24,8 +22,6 @@ const Welcome: React.FC<WelcomeProps> = (props) => {
                     <li>The game ends with a fun, collaborative story.</li>
                 </ul>
             </div>
-            
-            {/* Input Fields */}
             <input 
                 placeholder="Server IP" 
                 className={smallInputBox} 
@@ -42,8 +38,6 @@ const Welcome: React.FC<WelcomeProps> = (props) => {
                 value={name} 
                 onChange={(e) => setName(e.target.value)} 
             />
-            
-            {/* Action Button */}
             <button 
                 className={bigGreenActionButton} 
                 style={{ marginTop: "30px" }} 
