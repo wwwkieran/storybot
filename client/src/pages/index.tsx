@@ -2,10 +2,11 @@ import * as React from "react"
 import type { HeadFC, PageProps } from "gatsby"
 import Welcome from "../components/welcome";
 import Lobby from "../components/lobby";
+import Awaiting from "../components/awaiting";
 
 const IndexPage: React.FC<PageProps> = () => {
   return (
-   <Lobby emitStartGame={() => {}} names={["kieran", "lizzie"]}/>
+   <Awaiting/>
   )
 }
 
