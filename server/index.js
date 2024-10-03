@@ -3,7 +3,7 @@ const WebSocket = require('ws');
 
 const server = new WebSocket.Server({ port: 8081 });
 const players = {}; 
-const messages = [];
+let messages = [];
 let player_names = [];
 
 // AI Configuration
@@ -39,10 +39,21 @@ function shuffleArray(array) {
     }
 }
 
+function getLastThreeWords(input) {
+    if (!input.trim()) {
+        return "";
+    }
+
+    const words = input.trim().split(/\s+/);
+    const lastThreeWords = words.slice(-3);
+    return lastThreeWords.join(" ");
+}
+
 async function getAISentence() {
     // Get the last message from messages
-    const lastWords = messages.length > 0 ? messages[messages.length - 1].sentence : '';
-    
+    const lastSentence = messages.length > 0 ? messages[messages.length - 1].sentence : '';
+
+    const lastWords = getLastThreeWords(lastSentence)
     // Get AI completion
     const aiSentence = await getAICompletion(lastWords);
     
@@ -154,7 +165,9 @@ server.on('connection', (ws) => {
                     player_names = Object.keys(players)
                     player_names.push("AI")
                     shuffleArray(player_names);
-                    
+
+                    messages = [];
+
                     //iterate through shuffled list of names and then send trigger_start message
                     //while iterating through shuffled list of names, also append that new order onto global player_names array
                     for (const name in players){
@@ -203,6 +216,15 @@ server.on('connection', (ws) => {
                         if (next_player === "AI") {
                             getAISentence()
                             next_player = getNextPlayer(next_player)
+                            if (next_player === -1) {
+                                for (const name in players) {
+                                    players[name].send(JSON.stringify({
+                                        type: "GAME_ENDED",
+                                        story: messages
+                                    }));
+                                }
+                                break
+                            }
                         }
                         players[next_player].send(JSON.stringify({
                             type: "YOUR_TURN",
