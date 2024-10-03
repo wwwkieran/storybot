@@ -3,7 +3,7 @@ const WebSocket = require('ws');
 const server = new WebSocket.Server({ port: 8080 });
 const players = {}; 
 const messages = [];
-const player_names = []; 
+let player_names = [];
 
 
 // Function to get the next player
@@ -61,24 +61,32 @@ server.on('connection', (ws) => {
                 case "GAME_START":
             
                     //creates an array of all the names of the players and then shuffles that names array 
-                    const names = Object.keys(players);
-                    shuffleArray(names); 
+                    player_names = Object.keys(players)
+                    player_names.push("AI")
+                    shuffleArray(player_names);
                     
                     //iterate through shuffled list of names and then send trigger_start message
                     //while iterating through shuffled list of names, also append that new order onto global player_names array
-                    for (const name of names){
+                    for (const name in players){
                         players[name].send(JSON.stringify({
                             type: "TRIGGER_START",
                             player_names: Object.keys(players)
                             }));
-                        player_names.append(name); 
                     }
                     
                     //send the your_turn message to the new first player from the array 
-                    const first_player = player_names[0]; 
+                    let first_player = player_names[0];
+                    if (first_player === "AI") {
+                        getAISentence()
+                        first_player = getNextPlayer(first_player)
+                    }
                     players[first_player].send(JSON.stringify({
-                        type: "YOUR_TURN"
+                        type: "YOUR_TURN",
+                        last_message: {
+                            sentence: ""
+                        }
                     }));
+
                     break; 
                 
                 case "USER_SUBMITTED":
@@ -88,7 +96,7 @@ server.on('connection', (ws) => {
                         "name": data.player_name,
                         "sentence": data.sentence
                     };
-                    messages.append(message)
+                    messages.push(message)
 
                     //getting key of current player and setting new player 
                     let next_player = getNextPlayer(data.player_name)
@@ -100,6 +108,7 @@ server.on('connection', (ws) => {
                                 story : messages
                             }));
                         }
+
                     } else {
                         if (next_player === "AI") {
                             getAISentence()
@@ -120,6 +129,7 @@ server.on('connection', (ws) => {
 
     ws.on('close', () => {
         console.log('Client disconnected');
+        delete players[ws.player_name]
     });
 });
 

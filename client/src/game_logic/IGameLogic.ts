@@ -6,7 +6,7 @@ type IGameLogic = {
 }
 
 export type ISubmissionMessage = {
-    content: string
+    sentence: string
     name: string
 }
 

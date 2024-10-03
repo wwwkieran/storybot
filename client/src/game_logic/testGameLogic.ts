@@ -16,15 +16,15 @@ class TestGameLogic implements IGameLogic {
         this.prevSubmission = "hedgehog"
         this.submissionMessages = [
             {
-                content: "I like to eat",
+                sentence: "I like to eat",
                 name: "Kieran"
             },
             {
-                content: "bananas in the morning.bananas in the morning. bananas in the morning. bananas in the morning. bananas in the morning.  ",
+                sentence: "bananas in the morning.bananas in the morning. bananas in the morning. bananas in the morning. bananas in the morning.  ",
                 name: "AI"
             },
             {
-                content: "Morning is nice.",
+                sentence: "Morning is nice.",
                 name: "John"
             },
     ]
@@ -39,7 +39,7 @@ class TestGameLogic implements IGameLogic {
 
         this.emitSubmission = (s: string) => {
             this.submissionMessages.push({
-                content: s,
+                sentence: s,
                 name: props.myName
             })
             props.setPageDisplayed(5)

@@ -8,12 +8,14 @@ import Gameover from "../components/gameover";
 import {useEffect, useState} from "react";
 import IGameLogic from "../game_logic/IGameLogic";
 import TestGameLogic from "../game_logic/testGameLogic";
+import SocketGameLogic from "../game_logic/websocketGameLogic";
 
 const IndexPage: React.FC<PageProps> = () => {
     const [pageDisplayed, setPageDisplayed] = useState(1);
     const [names, setNames] = useState<string[]>([]);
     const [gameEngine, setGameEngine] = useState<IGameLogic | null>(null)
     const [serverIP, setServerIP] = useState<string>("")
+    const [name, setName] = useState<string>("")
 
 
     useEffect(() => {
@@ -21,15 +23,23 @@ const IndexPage: React.FC<PageProps> = () => {
             setGameEngine(new TestGameLogic({
                 setPageDisplayed: (n: number) => { setPageDisplayed(n) } ,
                 setNames: (n: string[]) => {setNames(n)} ,
-                myName: "Kieran"
+                myName: name,
             }))
             setPageDisplayed(2)
+        } else if (serverIP != "") {
+            const socketGameLogic = new SocketGameLogic({
+                    setPageDisplayed: (n: number) => { setPageDisplayed(n) } ,
+                    setNames: (n: string[]) => {setNames(n)} ,
+                    myName: name,
+                    serverIP: serverIP,
+                })
+            setGameEngine(socketGameLogic)
         }
     }, [serverIP]);
 
     switch (pageDisplayed) {
         case 1:
-            return <Welcome setServerIP={(s: string) => {setServerIP(s)}}/>
+            return <Welcome setServerIP={(s: string) => {setServerIP(s)}} setName={(s: string) => {setName(s)}}/>
         case 2:
             return <Lobby names={names} emitStartGame={gameEngine!.emitStartGame}/>
         case 3:

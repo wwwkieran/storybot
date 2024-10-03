@@ -19,8 +19,6 @@ const Lobby: React.FC<LobbyProps> = (props) => {
                 })}
             </table>
 
-
-
             <h2 className={subtitle}> Hit <b> Start Game </b> once all your friends have joined!</h2>
             <button className={bigGreenActionButton} style={{ marginTop: "86px" }} onClick={(e) => {
                 props.emitStartGame()

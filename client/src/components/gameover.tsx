@@ -83,7 +83,7 @@ const Gameover: React.FC<GameoverProps> = (props) => {
             <h2 className={subtitle}><b>Here’s the story you wrote!!</b></h2>
             <div className={storyDiv}>
                 {props.messages.map((v, i) => {
-                    return (<p className={classNames(sentenceP, { [clickableP]: clickable })} style={{backgroundColor: colors[i]}} onClick={() => clicked(i)}> {v.content} </p>)
+                    return (<p className={classNames(sentenceP, { [clickableP]: clickable })} style={{backgroundColor: colors[i]}} onClick={() => clicked(i)}> {v.sentence} </p>)
                 })}
             </div>
             {returnFooter(gameStatus, props.messages, props.playAgainFn)}
