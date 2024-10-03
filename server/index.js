@@ -139,28 +139,28 @@ async function getAICompletion(lastWords) {
 server.on('connection', (ws) => {
     console.log('Client connected');
 
-    ws.on('message', (message) => {
+    ws.on('message', async (message) => {
         try {
             const data = JSON.parse(message);
             console.log('Received:', data);
             // Handle different types of messages
-            switch(data.type){
+            switch (data.type) {
                 case "ENTER_PLAYER":
                     //setting the player_name within the websocket to be equal to the player_name in the data
-                    ws.player_name = data.player_name; 
+                    ws.player_name = data.player_name;
                     // in dictionary of players, the key is the player name, and the value is the websocket
-                    players[ws.player_name] = ws; 
+                    players[ws.player_name] = ws;
 
-                    for (const name in players){
+                    for (const name in players) {
                         players[name].send(JSON.stringify({
                             type: "CURRENT_PLAYERS",
                             player_names: Object.keys(players)
-                            }));
-                        }
-                    break; 
+                        }));
+                    }
+                    break;
 
                 case "GAME_START":
-            
+
                     //creates an array of all the names of the players and then shuffles that names array 
                     player_names = Object.keys(players)
                     player_names.push("AI")
@@ -170,17 +170,17 @@ server.on('connection', (ws) => {
 
                     //iterate through shuffled list of names and then send trigger_start message
                     //while iterating through shuffled list of names, also append that new order onto global player_names array
-                    for (const name in players){
+                    for (const name in players) {
                         players[name].send(JSON.stringify({
                             type: "TRIGGER_START",
                             player_names: Object.keys(players)
-                            }));
+                        }));
                     }
-                    
+
                     //send the your_turn message to the new first player from the array 
                     let first_player = player_names[0];
                     if (first_player === "AI") {
-                        getAISentence()
+                        await getAISentence()
                         first_player = getNextPlayer(first_player)
                     }
                     players[first_player].send(JSON.stringify({
@@ -190,8 +190,8 @@ server.on('connection', (ws) => {
                         }
                     }));
 
-                    break; 
-                
+                    break;
+
                 case "USER_SUBMITTED":
                     //creating a message object that stores name and sentence and appending to list of messages 
 
@@ -205,16 +205,16 @@ server.on('connection', (ws) => {
                     let next_player = getNextPlayer(data.player_name)
 
                     if (next_player === -1) {
-                        for (const name in players){
+                        for (const name in players) {
                             players[name].send(JSON.stringify({
-                                type:"GAME_ENDED",
-                                story : messages
+                                type: "GAME_ENDED",
+                                story: messages
                             }));
                         }
 
                     } else {
                         if (next_player === "AI") {
-                            getAISentence()
+                            await getAISentence()
                             next_player = getNextPlayer(next_player)
                             if (next_player === -1) {
                                 for (const name in players) {
@@ -235,7 +235,7 @@ server.on('connection', (ws) => {
             }
         } catch (error) {
             console.error('Error parsing message:', error);
-            ws.send(JSON.stringify({ type: 'error', message: 'Invalid JSON' }));
+            ws.send(JSON.stringify({type: 'error', message: 'Invalid JSON'}));
         }
     });
 
