@@ -1,15 +1,16 @@
 import { storyBotSmallHeader, bigText, subtitle } from "./styles.module.scss"
-import React, {useState} from "react";
-
+import React from "react";
+import { motion } from "framer-motion";
+import { containerVariants, itemVariants } from "./variants";
 
 const Awaiting: React.FC = (props) => {
     return (
-        <div>
-            <h1 className={storyBotSmallHeader}>StoryBot</h1>
-            <h2 className={bigText} style={{marginTop: '20vh', marginBottom: '20vh'}}>It ain’t your turn...</h2>
-            <h2 className={subtitle}>Someone else is making up a sentence right now!</h2>
-            <h2 className={subtitle}>It’ll be your turn soon... I promise!</h2>
-        </div>
+        <motion.div initial="hidden" animate="visible" variants={containerVariants}>
+            <motion.h1 className={storyBotSmallHeader} variants={itemVariants}>StoryBot</motion.h1>
+            <motion.h2 className={bigText} style={{marginTop: '20vh', marginBottom: '20vh'}} variants={itemVariants}>It ain’t your turn...</motion.h2>
+            <motion.h2 className={subtitle} variants={itemVariants}>Someone else is making up a sentence right now!</motion.h2>
+            <motion.h2 className={subtitle} variants={itemVariants}>It’ll be your turn soon... I promise!</motion.h2>
+        </motion.div>
     )
 }
 

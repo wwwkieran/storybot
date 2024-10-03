@@ -1,5 +1,7 @@
 import { storyBotSmallHeader, bigText, subtitle, largeInputBox, bigGreenActionButton, prevSubBox, prevSubText } from "./styles.module.scss"
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { containerVariants, itemVariants } from "./variants";
 
 function getLastThreeWords(input: string): string {
     if (!input.trim()) {
@@ -7,8 +9,7 @@ function getLastThreeWords(input: string): string {
     }
 
     const words = input.trim().split(/\s+/);
-    const lastThreeWords = words.slice(-3);
-    return lastThreeWords.join(" ");
+    return words.slice(-3).join(" ");
 }
 
 type TurnProps = {
@@ -19,30 +20,40 @@ type TurnProps = {
 const Turn: React.FC<TurnProps> = (props) => {
     const [submission, setSubmission] = useState("");
 
-
     return (
-        <div>
-            <h1 className={storyBotSmallHeader}>StoryBot</h1>
-            <h2 className={bigText} style={{marginTop: '2vh', marginBottom: '5vh'}}>It’s your turn!!</h2>
-            { props.prevSubmission != "" ? (<><h2 className={subtitle}><b>Here’s what the last person wrote:</b></h2>
-            <div className={prevSubBox}>
-                <p className={prevSubText}>
-                    {getLastThreeWords(props.prevSubmission)}
-                </p>
-            </div></>) : (<h2 className={subtitle}><b>You're first!! Start making up a story below.</b></h2>) }
-            <h2 className={subtitle}  style={{marginTop: '2vh', marginBottom: '2vh'}}><b>Continue the story and hit submit! Max 50 words</b></h2>
-            <textarea placeholder={"Write the next sentence here!"}
-                   className={largeInputBox}
-                   style={{marginTop: "0px"}}
-                   value={submission}
-                   onChange={(e) => {
-                       setSubmission(e.target.value)
-                   }}
+        <motion.div initial="hidden" animate="visible" variants={containerVariants}>
+            <motion.h1 className={storyBotSmallHeader} variants={itemVariants}>StoryBot</motion.h1>
+            <motion.h2 className={bigText} style={{ marginTop: '2vh', marginBottom: '5vh' }} variants={itemVariants}>It’s your turn!!</motion.h2>
+            {props.prevSubmission !== "" ? (
+                <>
+                    <motion.h2 className={subtitle} variants={itemVariants}><b>Here’s what the last person wrote:</b></motion.h2>
+                    <motion.div className={prevSubBox} variants={itemVariants}>
+                        <p className={prevSubText}>
+                            {getLastThreeWords(props.prevSubmission)}
+                        </p>
+                    </motion.div>
+                </>
+            ) : (
+                <motion.h2 className={subtitle} variants={itemVariants}><b>You're first!! Start making up a story below.</b></motion.h2>
+            )}
+            <motion.h2 className={subtitle} style={{ marginTop: '2vh', marginBottom: '2vh' }} variants={itemVariants}><b>Continue the story and hit submit! Max 50 words</b></motion.h2>
+            <motion.textarea
+                placeholder={"Write the next sentence here!"}
+                className={largeInputBox}
+                style={{ marginTop: "0px" }}
+                value={submission}
+                onChange={(e) => setSubmission(e.target.value)}
+                variants={itemVariants}
             />
-            <button className={bigGreenActionButton} style={{marginTop: '3vh'}} onClick={(e) => {
-                props.emitSubmission(submission)
-            }}>Submit</button>
-        </div>
+            <motion.button
+                className={bigGreenActionButton}
+                style={{ marginTop: '3vh' }}
+                onClick={() => props.emitSubmission(submission)}
+                variants={itemVariants}
+            >
+                Submit
+            </motion.button>
+        </motion.div>
     )
 }
 

@@ -101,7 +101,7 @@ async function getAICompletion(lastWords) {
         {
             role: 'user',
             content: `We are playing a game. You are a human being and receive the LAST_WORDS of a STORY. 
-                      I need you to follow up this STORY with no more than 20 words. If the LAST_WORDS doesn't have a period at the end, continue the sentence and you can create more sentences as well. Only share the text with no explanation or quotation marks. Make it casual or funny, and sound like a 20-year-old human. Additionally, set a variable n to be randomly either 0 or 1. If the value of n is 0, then end the sentence that you generate to be closed, and if n is equal to 1, then do not close the sentence that you generate. 
+                      I need you to follow up this STORY with 5 to 20 words. If the LAST_WORDS doesn't have a period at the end, continue the sentence and you can create more sentences as well. Only share the text with no explanation or quotation marks. Make it casual or funny, and sound like a 20-year-old human. Additionally, set a variable n to be randomly either 0 or 1. If the value of n is 0, then end the sentence that you generate to be closed, and if n is equal to 1, then do not close the sentence that you generate. 
                       LAST_WORDS: ${lastWords}`,
         },
     ];
